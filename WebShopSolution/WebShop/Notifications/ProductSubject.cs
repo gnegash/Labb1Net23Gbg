@@ -26,5 +26,15 @@
                 observer.Update(product);
             }
         }
+
+        public void NotifyProductRemoved(int id)
+        {
+            foreach (var observer in _observers)
+            {
+                observer.Remove(id);  // Notify observers about product removal
+            }
+        }
+
+
     }
 }

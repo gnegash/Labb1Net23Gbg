@@ -9,5 +9,11 @@
             // För enkelhetens skull skriver vi ut till konsolen
             Console.WriteLine($"Email Notification: New product added - {product.Name}");
         }
+
+        public void Remove(int id)
+        {
+            Console.WriteLine($"Email Notification: Product removed.");
+        }
+
     }
 }
