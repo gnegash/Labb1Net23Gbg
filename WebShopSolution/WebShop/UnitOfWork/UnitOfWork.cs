@@ -24,12 +24,12 @@ namespace WebShop.UnitOfWork
 
         public void NotifyProductAdded(Product product)
         {
-            _productSubject.Notify(product);
+            _productSubject.NotifyProductAdded(product);
         }
 
         public void NotifyProductRemoved(int id)
         {
-            _productSubject.Notify(id);
+            _productSubject.NotifyProductRemoved(id);
         }
     }
 }

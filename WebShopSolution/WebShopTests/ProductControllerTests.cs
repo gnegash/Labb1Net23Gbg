@@ -25,7 +25,7 @@ public class ProductControllerTests
     }
 
     [Fact]
-    public void GetProducts_ReturnsOkResult_WithAListOfProducts()
+    public void GetProducts_ReturnsAListOfProducts()
     {
         // Arrange
         var products = new List<Product>
@@ -39,11 +39,12 @@ public class ProductControllerTests
         // Act
         var result = _controller.GetProducts();
 
-
         // Assert
-        var okResult = Assert.IsType<OkResult>(result);
-        _mockProductRepository.Verify(repo => repo.Add(It.IsAny<Product>()), Times.Once);
+        var okResult = Assert.IsType<OkObjectResult>(result); // Check if the result is OkObjectResult
+        var returnedProducts = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value); // Get the list of products from the OkObjectResult
+        Assert.Equal(2, returnedProducts.Count());
 
+        _mockProductRepository.Verify(repo => repo.GetAll(), Times.Once());
     }
 
     [Fact]
@@ -60,5 +61,27 @@ public class ProductControllerTests
         // Assert
         var okResult = Assert.IsType<OkResult>(result); // Assert that the result is OkResult
         _mockProductRepository.Verify(repo => repo.Add(It.IsAny<Product>()), Times.Once); // Ensure Add was called once
+
+        _mockUnitOfWork.Verify(uow => uow.NotifyProductAdded(product), Times.Once);
+
+    }
+
+    [Fact]
+    public void RemoveProduct_ReturnsOkResult()
+    {
+        // Arrange
+        var productId = 1;
+
+
+        // Act
+        var result = _controller.DeleteProduct(productId);
+
+
+        // Assert
+        var okResult = Assert.IsType<OkResult>(result); // Assert that the result is OkResult
+        _mockProductRepository.Verify(repo => repo.Delete(productId), Times.Once);
+
+        // Ensure the notification about product removal is triggered once
+        _mockUnitOfWork.Verify(uow => uow.NotifyProductRemoved(productId), Times.Once);
     }
 }

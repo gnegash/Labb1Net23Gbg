@@ -42,6 +42,7 @@ namespace WebShop.Controllers
             return Ok();
         }
 
+        [HttpDelete]
         public ActionResult DeleteProduct(int id)
         {
             _unitOfWork.Products.Delete(id);
