@@ -1,10 +1,15 @@
-﻿namespace WebShop.Notifications
+﻿using WebShop.Entities;
+
+namespace WebShop.Notifications
 {
     // Gränssnitt för notifieringsobservatörer enligt Observer Pattern
     public interface INotificationObserver
     {
-        void Add(Product product); // Metod som kallas när en ny produkt läggs till
+        void AddProduct(Product product); // Metod som kallas när en ny produkt läggs till
 
-        void Remove(int id);
+        void RemoveProduct(int id);
+
+        void UpdateProduct(Product product);
+
     }
 }

@@ -1,4 +1,5 @@
 using Moq;
+using WebShop.Entities;
 using WebShop.Notifications;
 
 namespace WebShop.Tests
@@ -19,6 +20,8 @@ namespace WebShop.Tests
             productSubject.Attach(mockObserver.Object);
 
             // Injicerar vårt eget ProductSubject i UnitOfWork
+
+            // varför tas UnitOfWork som typ innan metod?
             var unitOfWork = new UnitOfWork.UnitOfWork(productSubject);
 
             // Act
@@ -26,7 +29,7 @@ namespace WebShop.Tests
 
             // Assert
             // Verifierar att Update-metoden kallades på vår mock-observatör
-            mockObserver.Verify(o => o.Add(product), Times.Once);
+            mockObserver.Verify(o => o.AddProduct(product), Times.Once);
         }
 
         [Fact]
@@ -46,7 +49,7 @@ namespace WebShop.Tests
             unitOfWork.NotifyProductRemoved(productId);
 
             // Assert
-            mockObserver.Verify(o => o.Remove(productId), Times.Once);
+            mockObserver.Verify(o => o.RemoveProduct(productId), Times.Once);
         }
     }
 }

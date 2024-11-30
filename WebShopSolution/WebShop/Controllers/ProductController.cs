@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebShop.Entities;
 using WebShop.Repositories;
 using WebShop.UnitOfWork;
 
@@ -8,48 +9,39 @@ namespace WebShop.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;  // Inject UnitOfWork here
+        private readonly ProductService _productService;
 
-        // Constructor now takes IUnitOfWork as a parameter ist för att injecta repot
-        public ProductController(IUnitOfWork unitOfWork)
+        public ProductController(ProductService productService)
         {
-            _unitOfWork = unitOfWork;  // Set the UnitOfWork
+            _productService = productService;
         }
 
-        // Endpoint för att hämta alla produkter
         [HttpGet]
-        public ActionResult<IEnumerable<Product>> GetProducts()
+        public async Task<IActionResult> GetProducts()
         {
-            // Behöver använda repository via Unit of Work för att hämta produkter
-            var products = _unitOfWork.Products.GetAll();
-
-            //returnera de
+            var products = await _productService.GetProductsAsync();
             return Ok(products);
         }
 
-        // Endpoint för att lägga till en ny produkt
         [HttpPost]
-        public ActionResult AddProduct(Product product)
+        public async Task<IActionResult> AddProduct([FromBody] Product product)
         {
-            // Lägger till produkten via repository
-            _unitOfWork.Products.Add(product);
-
-            // Notifierar observatörer om att en ny produkt har lagts till
-            _unitOfWork.NotifyProductAdded(product);
-
-            // Sparar förändringar
-
-            return Ok();
+            await _productService.AddProductAsync(product);
+            return Ok("Product added successfully");
         }
 
-        [HttpDelete]
-        public ActionResult DeleteProduct(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
         {
-            _unitOfWork.Products.Delete(id);
+            await _productService.DeleteProductAsync(id);
+            return Ok("Product deleted successfully");
+        }
 
-            _unitOfWork.NotifyProductRemoved(id);
-
-            return Ok();
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromBody] Product product)
+        {
+            await _productService.UpdateProductAsync(product);
+            return Ok("Product updated successfully");
         }
     }
 }

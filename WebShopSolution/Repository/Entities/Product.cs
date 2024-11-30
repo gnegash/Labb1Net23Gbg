@@ -1,4 +1,4 @@
-namespace WebShop
+namespace Repository
 {
     // Produktmodellen representerar en produkt i webbshoppen
     public class Product

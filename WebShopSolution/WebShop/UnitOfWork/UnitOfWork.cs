@@ -1,25 +1,32 @@
-﻿using WebShop.Notifications;
+﻿using Microsoft.EntityFrameworkCore;
+using WebShop.Entities;
+using WebShop.Notifications;
 using WebShop.Repositories;
+using WebShop.Repository;
 
 namespace WebShop.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        // Hämta produkter från repository
-        public IProductRepository Products { get; private set; }
 
-        private readonly ProductSubject _productSubject;
+        private readonly DbContext _context;
+        public IProductRepository Products { get; }
 
-        // Konstruktor används för tillfället av Observer pattern
-        public UnitOfWork(ProductSubject productSubject = null)
+
+        public UnitOfWork(DbContext context, IProductRepository products)
         {
-            Products = null;
+            _context = context;
+            Products = products;
+        }
 
-            // Om inget ProductSubject injiceras, skapa ett nytt
-            _productSubject = productSubject ?? new ProductSubject();
+        public async Task CommitAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
 
-            // Registrera standardobservatörer
-            _productSubject.Attach(new EmailNotification());
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
         public void NotifyProductAdded(Product product)
@@ -33,3 +40,7 @@ namespace WebShop.UnitOfWork
         }
     }
 }
+
+       
+    
+

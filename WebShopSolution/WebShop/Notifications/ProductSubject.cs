@@ -1,4 +1,6 @@
-﻿namespace WebShop.Notifications
+﻿using WebShop.Entities;
+
+namespace WebShop.Notifications
 {
     // Subject som håller reda på observatörer och notifierar dem
     public class ProductSubject
@@ -12,6 +14,7 @@
             _observers.Add(observer);
         }
 
+        // när används?
         public void Detach(INotificationObserver observer)
         {
             // Ta bort en observatör
@@ -23,7 +26,7 @@
             // Notifiera alla observatörer om en ny produkt
             foreach (var observer in _observers)
             {
-                observer.Add(product);
+                observer.AddProduct(product);
             }
         }
 
@@ -31,7 +34,15 @@
         {
             foreach (var observer in _observers)
             {
-                observer.Remove(id);  // Notify observers about product removal
+                observer.RemoveProduct(id);  // Notify observers about product removal
+            }
+        }
+
+        public void NotifyProductUpdated(Product product)
+        {
+            foreach (var observer in _observers)
+            {
+                observer.UpdateProduct(product);
             }
         }
 
