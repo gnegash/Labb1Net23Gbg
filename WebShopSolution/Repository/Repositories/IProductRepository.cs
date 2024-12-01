@@ -9,12 +9,5 @@
 
         //vi kan utöka specifika metoder bara för product obj som exv produktsaldo
         bool UpdateStock(Product product, int q);
-
-        //IEnumerable<Product> GetAll(); // Hämtar alla produkter
-        //void Add(Product product); // Lägger till en ny produkt
-
-        //void Delete(int id);
-
-        //void Update(Product product);
     }
 }

@@ -17,28 +17,32 @@ namespace Repository
         {
             //instansieras
             _context = context;
-            _dbSet = context.Set<T>();
+            _dbSet = context.Set<T>(); // få dbset från context
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return _dbSet.ToList();
         }
 
         public void Add(T item)
         {
             //med denna kod sker koppling till respektive db lista, funktionen tar emot vilken typ(T) som helst
-            //_dbSet.Add(item);
+            _dbSet.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
+            var entity = _dbSet.Find(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
         }
 
         public void Update(T item)
         {
-            throw new NotImplementedException();
+            _dbSet.Update(item);
         }
     }
 }

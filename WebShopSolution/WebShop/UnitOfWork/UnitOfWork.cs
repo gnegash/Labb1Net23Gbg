@@ -1,18 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repository;
+using WebShop.Notifications;
 
 namespace WebShop.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
 
-        private readonly DbContext _context;
-        public IProductRepository Products { get; }
+        private readonly DatabaseContext _context;
+        private readonly DbSet<Product> _dbSet;
 
-
-        public UnitOfWork(DbContext context, IProductRepository products)
+        public IProductRepository Products { get; set; }
+        public UnitOfWork(DatabaseContext context)
         {
-            _context = context;
-            Products = products;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            Products = new ProductRepository(_context, _dbSet);
         }
 
         public async Task CommitAsync()
@@ -23,16 +25,6 @@ namespace WebShop.UnitOfWork
         public void Dispose()
         {
             _context.Dispose();
-        }
-
-        public void NotifyProductAdded(Product product)
-        {
-            _productSubject.NotifyProductAdded(product);
-        }
-
-        public void NotifyProductRemoved(int id)
-        {
-            _productSubject.NotifyProductRemoved(id);
         }
     }
 }

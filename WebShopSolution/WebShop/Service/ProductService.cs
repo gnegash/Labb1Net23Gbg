@@ -1,4 +1,5 @@
-﻿using WebShop.Notifications;
+﻿using Repository;
+using WebShop.Notifications;
 using WebShop.UnitOfWork;
 
 public class ProductService
@@ -12,7 +13,7 @@ public class ProductService
         _productSubject = productSubject;
     }
 
-    public async Task<List<Product>> GetAllProductsAsync()
+    public async Task<List<Product>> GetProductsAsync()
     {
         var products = _unitOfWork.Products.GetAll();
         return products.ToList();
