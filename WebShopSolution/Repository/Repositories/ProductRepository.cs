@@ -1,45 +1,31 @@
-﻿using Repository.Interfaces;
-
-namespace Repository
+﻿namespace Repository
 {
-    //implementation av vårat grund repo
-    public class ProductRepository<T> : IRepository<T> where T : class
+    //implementation av vårat grund repo + övrig funktionalitet
+    public class ProductRepository : IProductRepository
     {
-
-        //dra in (readonly priv) databas context här
-        //använd även dbset för listor
-        // båda läggs till i parameter i konstruktor
-
-        private readonly DbContext _context;
-
-        public ProductRepository(DbContext context)
+        public void Add(Product item)
         {
-            _context = context;
-        }
-
-        // Asynchronous version of GetAll
-        public async Task<IEnumerable<Product>> GetAll()
-        {
-            return await _context.Products.ToListAsync();
-        }
-
-        public void Add(Product product)
-        {
-            _context.Products.Add(product);
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)
         {
-            var product = _context.Products.Find(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-            }
+            throw new NotImplementedException();
         }
 
-        public void Update(Product product)
+        public IEnumerable<Product> GetAll()
         {
-            _context.Products.Update(product);
+            throw new NotImplementedException();
+        }
+
+        public void Update(Product item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateStock(Product product, int q)
+        {
+            throw new NotImplementedException();
         }
     }
 }

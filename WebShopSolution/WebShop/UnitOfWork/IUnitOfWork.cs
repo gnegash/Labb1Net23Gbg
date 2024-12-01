@@ -1,7 +1,4 @@
-﻿using WebShop.Entities;
-using WebShop.Repositories;
-
-namespace WebShop.UnitOfWork
+﻿namespace WebShop.UnitOfWork
 {
     // Gränssnitt för Unit of Work
     public interface IUnitOfWork : IDisposable //hanterar resursläckor genom att stänga ner kopplingen till externa resurs(db) och frigör minne

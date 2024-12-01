@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using WebShop.Entities;
-using WebShop.Notifications;
+﻿using WebShop.Notifications;
 using WebShop.UnitOfWork;
 
 public class ProductService

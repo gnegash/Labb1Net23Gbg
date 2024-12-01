@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebShop.Entities;
-using WebShop.Notifications;
-using WebShop.Repositories;
-using WebShop.Repository;
 
 namespace WebShop.UnitOfWork
 {
