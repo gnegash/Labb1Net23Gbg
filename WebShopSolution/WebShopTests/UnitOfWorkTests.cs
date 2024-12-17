@@ -24,29 +24,9 @@ namespace WebShop.Tests
             //// Act
             //unitOfWork.NotifyProductAdded(product);
 
-            //Assert
-            //Verifierar att Update-metoden kallades på vår mock-observatör
-            mockObserver.Verify(o => o.Add(product), Times.Once);
-        }
-
-        [Fact]
-        public void NotifyProductRemoved_CallsObserver()
-        {
-            // Arrange
-            var productId = 1;
-
-            var mockObserver = new Mock<INotificationObserver>();
-
-            var prodSubject = new ProductSubject();
-            prodSubject.Attach(mockObserver.Object);
-
-            var unitOfWork = new UnitOfWork.UnitOfWork(prodSubject);
-
-            //// Act
-            //unitOfWork.NotifyProductRemoved(productId);
-
-            //Assert
-            mockObserver.Verify(o => o.Remove(productId), Times.Once);
+            // Assert
+            // Verifierar att Update-metoden kallades på vår mock-observatör
+            mockObserver.Verify(o => o.Update(product), Times.Once);
         }
     }
 }

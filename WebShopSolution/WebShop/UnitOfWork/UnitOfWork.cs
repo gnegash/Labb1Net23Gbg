@@ -22,5 +22,14 @@ namespace WebShop.UnitOfWork
             _productSubject.Attach(new EmailNotification());
         }
 
+        public void NotifyProductAdded(Product product)
+        {
+            _productSubject.Notify(product);
+        }
+
+        public void NotifyProductRemoved(int id)
+        {
+            _productSubject.Notify(id);
+        }
     }
 }

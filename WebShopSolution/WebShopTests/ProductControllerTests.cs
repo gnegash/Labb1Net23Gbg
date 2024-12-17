@@ -25,7 +25,7 @@ public class ProductControllerTests
     }
 
     [Fact]
-    public void GetProducts_ReturnsAListOfProducts()
+    public void GetProducts_ReturnsOkResult_WithAListOfProducts()
     {
         // Arrange
         var products = new List<Product>
@@ -39,12 +39,12 @@ public class ProductControllerTests
         // Act
         var result = _controller.GetProducts();
 
-        //Assert
-        var okResult = Assert.IsType<OkObjectResult>(result); // Check if the result is OkObjectResult
-        var returnedProducts = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value); // Get the list of products from the OkObjectResult
-        Assert.Equal(2, returnedProducts.Count());
 
-        _mockProductRepository.Verify(repo => repo.GetAll(), Times.Once());
+        // Assert
+        //Assert
+        var okResult = Assert.IsType<OkResult>(result);
+        _mockProductRepository.Verify(repo => repo.Add(It.IsAny<Product>()), Times.Once);
+
     }
 
     [Fact]

@@ -3,7 +3,7 @@
     // En konkret observatör som skickar e-postmeddelanden
     public class EmailNotification : INotificationObserver
     {
-        public void Add(Product product)
+        public void Update(Product product)
         {
             // Här skulle du implementera logik för att skicka ett e-postmeddelande
             // För enkelhetens skull skriver vi ut till konsolen
