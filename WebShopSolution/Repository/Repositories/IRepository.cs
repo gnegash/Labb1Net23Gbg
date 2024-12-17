@@ -1,6 +1,12 @@
-﻿namespace Repository
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Repository.Interfaces
 {
-    //bas interface som alla andra repon kan ärva generiska(T) operationer av
+    //bas repo som alla andra repon kan ärva av pga generisk typ
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();

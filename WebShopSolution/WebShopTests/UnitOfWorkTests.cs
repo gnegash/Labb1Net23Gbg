@@ -1,6 +1,6 @@
-//using Moq;
-//using Repository;
-//using WebShop.Notifications;
+using Moq;
+using WebShop.Entities;
+using WebShop.Notifications;
 
 //namespace WebShop.Tests
 //{

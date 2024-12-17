@@ -1,4 +1,5 @@
-﻿using Repository;
+﻿using WebShop.Entities;
+using WebShop.Repositories;
 
 namespace WebShop.UnitOfWork
 

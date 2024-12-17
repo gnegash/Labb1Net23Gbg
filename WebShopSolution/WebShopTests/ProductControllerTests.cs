@@ -1,8 +1,9 @@
-//using Microsoft.AspNetCore.Mvc;
-//using Moq;
-//using Repository;
-//using WebShop.Controllers;
-//using WebShop.UnitOfWork;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using WebShop.Controllers;
+using WebShop.Entities;
+using WebShop.Repositories;
+using WebShop.UnitOfWork;
 
 //public class ProductControllerTests
 //{

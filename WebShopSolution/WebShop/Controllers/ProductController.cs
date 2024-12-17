@@ -1,5 +1,7 @@
-//using Microsoft.AspNetCore.Mvc;
-//using Repository;
+using Microsoft.AspNetCore.Mvc;
+using WebShop.Entities;
+using WebShop.Repositories;
+using WebShop.UnitOfWork;
 
 //namespace WebShop.Controllers
 //{

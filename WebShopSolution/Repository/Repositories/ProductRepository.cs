@@ -1,57 +1,45 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Repository.Interfaces;
 
 namespace Repository
 {
-    //implementation av vårat grund repo + övrig funktionalitet
-    public class ProductRepository : Repository<Product>, IProductRepository
+    //implementation av vårat grund repo
+    public class ProductRepository<T> : IRepository<T> where T : class
     {
-        private readonly DatabaseContext _context;
-        private readonly DbSet<Product> _dbSet;
-        public ProductRepository(DatabaseContext context, DbSet<Product> dbSet) : base(context, dbSet)
+
+        //dra in (readonly priv) databas context här
+        //använd även dbset för listor
+        // båda läggs till i parameter i konstruktor
+
+        private readonly DbContext _context;
+
+        public ProductRepository(DbContext context)
         {
             _context = context;
-            _dbSet = dbSet;
         }
 
-        public void Add(Product item)
+        // Asynchronous version of GetAll
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
+            return await _context.Products.ToListAsync();
+        }
 
-            _dbSet.Add(item);
+        public void Add(Product product)
+        {
+            _context.Products.Add(product);
         }
 
         public void Delete(int id)
         {
-            var product = _dbSet.Find(id);
-            if (product == null)
-                throw new KeyNotFoundException($"Product with ID {id} not found.");
-
-            _dbSet.Remove(product);
+            var product = _context.Products.Find(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+            }
         }
 
-        public IEnumerable<Product> GetAll()
+        public void Update(Product product)
         {
-            return _dbSet.AsEnumerable();
-        }
-
-        public void Update(Product item)
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-
-            _dbSet.Update(item);
-        }
-
-        public bool UpdateStock(Product product, int q)
-        {
-            if(product == null)
-                throw new ArgumentNullException(nameof(product));
-
-            product.Stock += q;
-
-            _dbSet.Update(product);
-            return true;
+            _context.Products.Update(product);
         }
 
     }

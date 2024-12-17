@@ -1,4 +1,4 @@
-﻿using Repository;
+﻿using WebShop.Entities;
 
 namespace WebShop.Notifications
 {
