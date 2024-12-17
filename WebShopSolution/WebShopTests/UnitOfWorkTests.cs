@@ -1,5 +1,4 @@
 using Moq;
-using WebShop.Entities;
 using WebShop.Notifications;
 
 //namespace WebShop.Tests
@@ -19,18 +18,16 @@ using WebShop.Notifications;
 //            var productSubject = new ProductSubject();
 //            productSubject.Attach(mockObserver.Object);
 
-//            // Injicerar vårt eget ProductSubject i UnitOfWork
-
-//            // varför tas UnitOfWork som typ innan metod?
-//            //var unitOfWork = new UnitOfWork.UnitOfWork(productSubject);
+            // Injicerar vårt eget ProductSubject i UnitOfWork
+            var unitOfWork = new UnitOfWork.UnitOfWork(productSubject);
 
 //            //// Act
 //            //unitOfWork.NotifyProductAdded(product);
 
-//            // Assert
-//            // Verifierar att Update-metoden kallades på vår mock-observatör
-//            mockObserver.Verify(o => o.AddProduct(product), Times.Once);
-//        }
+            // Assert
+            // Verifierar att Update-metoden kallades på vår mock-observatör
+            mockObserver.Verify(o => o.Add(product), Times.Once);
+        }
 
 //        [Fact]
 //        public void NotifyProductRemoved_CallsObserver()
@@ -48,8 +45,8 @@ using WebShop.Notifications;
 //            //// Act
 //            //unitOfWork.NotifyProductRemoved(productId);
 
-//            // Assert
-//            mockObserver.Verify(o => o.RemoveProduct(productId), Times.Once);
-//        }
-//    }
-//}
+            // Assert
+            mockObserver.Verify(o => o.Remove(productId), Times.Once);
+        }
+    }
+}

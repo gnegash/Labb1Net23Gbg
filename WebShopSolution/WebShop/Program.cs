@@ -16,13 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-//docker compose
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-
-//börja implementera swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 //}

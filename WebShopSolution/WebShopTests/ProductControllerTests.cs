@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using WebShop;
 using WebShop.Controllers;
-using WebShop.Entities;
 using WebShop.Repositories;
 using WebShop.UnitOfWork;
 
@@ -34,23 +34,18 @@ using WebShop.UnitOfWork;
 //            new Product { Id = 2, Name = "Car" }
 //        };
 
-//        // används här eftersom att returvärdet spelar roll
-//        _mockProductRepository.Setup(repo => repo.GetAll()).Returns(products);
+        _mockProductRepository.Setup(repo => repo.GetAll()).Returns(products);
 
 //        // Act
 //        var result = _controller.GetProducts();
 
-//        //klaga på typen som assertas Assert.Type != 
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result); // Check if the result is OkObjectResult
+        var returnedProducts = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value); // Get the list of products from the OkObjectResult
+        Assert.Equal(2, returnedProducts.Count());
 
-//        // Assert
-//        var actionResult = Assert.IsType<ActionResult<List<Product>>>(result); // Check if the result is OkObjectResult
-//        var okResult = Assert.IsType<OkObjectResult>(actionResult.Result); // Get the list of products from the OkObjectResult
-
-//        var returnedProducts = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value); // Get the products from Value
-//        Assert.Equal(2, returnedProducts.Count()); // Assert the count of products is 2
-
-//        _mockProductRepository.Verify(repo => repo.GetAll(), Times.Once());
-//    }
+        _mockProductRepository.Verify(repo => repo.GetAll(), Times.Once());
+    }
 
 //    [Fact]
 //    public void AddProduct_ReturnsOkResult()
@@ -86,26 +81,7 @@ using WebShop.UnitOfWork;
 //        var okResult = Assert.IsType<OkResult>(result); // Assert that the result is OkResult
 //        _mockProductRepository.Verify(repo => repo.Delete(productId), Times.Once);
 
-//        // Ensure the notification about product removal is triggered once
-//        //_mockUnitOfWork.Verify(uow => uow.NotifyProductRemoved(productId), Times.Once);
-//    }
-
-//    [Fact]
-//    public void UpdateProduct_ReturnOkResults()
-//    {
-
-//        // Arrange 
-//        var product = new Product { Id = 1, Name = "Updated product" };
-
-//        // Act
-//        var result = _controller.UpdateProduct(product);
-
-//        // Assert
-
-//        var okResult = Assert.IsType<OkResult>(result);
-//        _mockProductRepository.Verify(repo => repo.Update(product), Times.Once);
-
-//        //_mockUnitOfWork.Verify(uow => uow.NotifyProductUpdated(product));
-
-//    }
-//}
+        // Ensure the notification about product removal is triggered once
+        _mockUnitOfWork.Verify(uow => uow.NotifyProductRemoved(productId), Times.Once);
+    }
+}

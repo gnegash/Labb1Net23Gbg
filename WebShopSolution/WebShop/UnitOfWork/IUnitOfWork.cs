@@ -1,15 +1,18 @@
-﻿using WebShop.Entities;
-using WebShop.Repositories;
+﻿using WebShop.Repositories;
 
 namespace WebShop.UnitOfWork
 
 {
     // Gränssnitt för Unit of Work
-    public interface IUnitOfWork : IDisposable //hanterar resursläckor genom att stänga ner kopplingen till externa resurs(db) och frigör minne
+    public interface IUnitOfWork
     {
+        // Repository för produkter
+        // Sparar förändringar (om du använder en databas)
         IProductRepository Products { get; }
-        Task CommitAsync();
 
+        void NotifyProductAdded(Product product); // Notifierar observatörer om ny produkt
+
+        void NotifyProductRemoved(int id);
     }
 }
 
