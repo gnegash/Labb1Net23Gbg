@@ -29,7 +29,7 @@ namespace WebShop.UnitOfWork
 
         public void NotifyProductRemoved(int id)
         {
-            _productSubject.Notify(id);
+            _productSubject.NotifyProductRemoved(id);
         }
     }
 }

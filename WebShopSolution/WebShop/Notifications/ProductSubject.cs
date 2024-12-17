@@ -23,7 +23,7 @@
             // Notifiera alla observatörer om en ny produkt
             foreach (var observer in _observers)
             {
-                observer.Update(product);
+                observer.Add(product);
             }
         }
 
@@ -34,7 +34,6 @@
                 observer.Remove(id);  // Notify observers about product removal
             }
         }
-
 
     }
 }
