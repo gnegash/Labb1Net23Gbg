@@ -21,5 +21,6 @@ namespace WebShop.UnitOfWork
             // Registrera standardobservatörer
             _productSubject.Attach(new EmailNotification());
         }
+
     }
 }

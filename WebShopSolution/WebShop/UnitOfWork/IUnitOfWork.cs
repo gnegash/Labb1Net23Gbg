@@ -10,9 +10,9 @@ namespace WebShop.UnitOfWork
         // Sparar förändringar (om du använder en databas)
         IProductRepository Products { get; }
 
-        void NotifyProductAdded(Product product); // Notifierar observatörer om ny produkt
+        //void NotifyProductAdded(Product product); // Notifierar observatörer om ny produkt
 
-        void NotifyProductRemoved(int id);
+        //void NotifyProductRemoved(int id);
     }
 }
 

@@ -35,7 +35,7 @@ namespace WebShop.Controllers
             _unitOfWork.Products.Add(product);
 
             // Notifierar observatörer om att en ny produkt har lagts till
-            _unitOfWork.NotifyProductAdded(product);
+            //_unitOfWork.NotifyProductAdded(product);
 
             // Sparar förändringar
 
@@ -47,7 +47,7 @@ namespace WebShop.Controllers
         {
             _unitOfWork.Products.Delete(id);
 
-            _unitOfWork.NotifyProductRemoved(id);
+            //_unitOfWork.NotifyProductRemoved(id);
 
             return Ok();
         }
